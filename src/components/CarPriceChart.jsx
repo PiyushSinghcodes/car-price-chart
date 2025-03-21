@@ -1065,6 +1065,54 @@ const CarPriceChart = () => {
       .domain([0, 150000])  
       .range([0, x.bandwidth()]); 
       
+    // Add X axis
+    svg.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .style("text-anchor", "middle")
+      .style("font-size", "12px")
+      .style("color", "#4A4A4C");
+      
+    // Add X axis label
+    svg.append("text")
+      .attr("y", height + margin.bottom - 5)
+      .attr("x", width / 2)
+      .attr("text-anchor", "middle")
+      .style("font-size", "14px")
+      .style("fill", "#585A5A")
+      .text("Year");
+      
+    // Add Y axis
+    const yAxis = svg.append("g")
+      .attr("class", "y-axis")
+      .call(d3.axisLeft(y)
+        .tickFormat(d => `${(d / 100000).toFixed(1)}L`))
+      .style("color", "#4A4A4C");
+      
+    // Remove domain line
+    yAxis.select(".domain").remove();
+    
+    // Add Y axis label
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -margin.left + 15)
+      .attr("x", -(height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .style("font-size", "14px")
+      .style("fill", "#585A5A")
+      .text("Price (in ₹)");
+    
+    // Add gridlines
+    svg.append("g")
+      .attr("class", "grid")
+      .call(d3.axisLeft(y)
+        .tickSize(-width)
+        .tickFormat(""))
+      .style("stroke-opacity", "0.1");
+      
     // Add bars
     const bars = svg.selectAll('.bar')
       .data(filteredYearlyData)
@@ -1883,6 +1931,25 @@ const CarPriceChart = () => {
         .bar-label {
           font-size: 12px;
         }
+        .x-axis text, .y-axis text {
+          font-family: "Noto Sans", sans-serif;
+          font-size: 12px;
+          color: #4A4A4C;
+        }
+        .x-axis path, .y-axis path {
+          stroke: #D0D0D0;
+        }
+        .x-axis line, .y-axis line {
+          stroke: #D0D0D0;
+          stroke-opacity: 0.7;
+        }
+        .grid line {
+          stroke: #E5E5E5;
+          shape-rendering: crispEdges;
+        }
+        .grid path {
+          stroke-width: 0;
+        }
         @media (max-width: 480px) {
           .data-point {
             r: 3;
@@ -1899,6 +1966,12 @@ const CarPriceChart = () => {
             width: 95vw !important;
             min-height: unset !important;
             height: 90vh !important;
+          }
+          .x-axis text {
+            font-size: 10px;
+          }
+          .y-axis text {
+            font-size: 10px;
           }
         }
         @media (max-width: 768px) {
