@@ -1,0 +1,326 @@
+.chart-container {
+    position: relative;
+    top: 20px;
+    width: 732px;
+    height: 389px;
+    max-width: 100%;
+    padding: 24px;
+    overflow-x: hidden;
+    font-family: "Noto Sans", sans-serif;
+    background: linear-gradient(to right, #EAFFFE, #FFFFFF);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .header-container{
+    display: flex;
+    width: 564px;
+    height: 28px;
+    padding: 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap:16px;
+  }
+
+  .region-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .region-select {
+    padding: 8px;
+    font-size: 14px;
+  }
+   
+  .toggle-container {
+    display: flex;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #f0f0f0;
+    padding: 3px;
+    cursor: pointer;
+    width: 104px;
+    height: 32px;
+  }
+ 
+  .toggle-button {
+    flex: 1;
+    font-size: 14px;
+    border: none;
+    border-radius: 20px;
+    transition: 0.3s;
+  }
+  .car-icon-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: var(--Sys-Color-On-Surface-Secondary, #585A5A);
+    font-family: "Noto Sans";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+  }
+
+  /* Tooltip container */
+#tooltip-container {
+    position: relative;
+    background: linear-gradient(145deg, #B8FFF2, #E0FFFA);
+    border-radius: 30px;
+    padding: 3px 4px;
+  }
+  /* Tooltip styling */
+.tooltip-contain {
+    position: absolute;
+    visibility: hidden;
+    background: linear-gradient(145deg, #B8FFF2, #E0FFFA);
+    padding: 15px 25px; /* Increased horizontal padding for oval shape */
+    border-radius: 30px; /* Increased border radius for oval shape */
+    pointer-events: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 99999;
+    font-size: 13px;
+    line-height: 1.5;
+    min-width: 200px;
+    transform: translateX(20px); /* Offset for pointer */
+    transition: all 0.2s ease;
+  }
+  
+  
+  /* Tooltip arrow (pointer) */
+  #tooltip-container::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 15px solid #B8FFF2; /* Match the gradient start color */
+  }
+  
+  /* Tooltip content layout */
+  .tooltip-content {
+    display: grid;
+    gap: 8px;
+  }
+  
+  /* Tooltip title */
+  .tooltip-header {
+    font-weight: bold;
+    color: #2C3E50;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  /* Tooltip rows */
+  .tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Tooltip labels */
+  .tooltip-label {
+    color: #34495E;
+    font-weight: 500;
+  }
+  
+  /* Tooltip values */
+  .tooltip-value {
+    color: #2C3E50;
+    font-weight: 600;
+  }
+
+/* Chart title styles */
+.chart-title {
+  color: var(--Sys-Color-On-Surface, #4A4A4C);
+  font-family: "Noto Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+/* Chart container header styles */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -19px;
+  margin-bottom: -26px;
+}
+
+/* Toggle button styles */
+.toggle-button-all {
+  background: linear-gradient(94deg, #4AA09B 1.29%, #41CFC7 102.69%);
+  color: white;
+}
+
+.toggle-button-region {
+  background: white;
+  color: black;
+  margin-left: 3px;
+}
+
+/* SVG chart styles */
+.chart-svg {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+}
+
+/* Instruction text styles */
+.instruction-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.instruction-text {
+  color: var(--Sys-Color-On-Surface-Secondary, #585A5A);
+  font-family: "Noto Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.instruction-highlight {
+  color: var(--Sys-Color-Light-Primary, #4AA09B);
+}
+
+/* Detailed view styles */
+#detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+#detail-modal {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  background-color: #ffffff;
+  padding-top: 24px;
+  width: 732px;
+  height: 413px;
+  border-radius: 8px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+}
+
+#detailed-view {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  transform: translate(20px, 20px);
+  background-color: #ffffff;
+  padding: 24px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  width: 732px;
+  height: 413px;
+  max-width: 1400px;
+  max-height: 900px;
+  overflow: auto;
+  z-index: 100;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -48%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes glowing {
+  0% {
+    filter: drop-shadow(0 0 8px rgba(255, 228, 93, 0.9));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(255, 229, 102, 1));
+  }
+  100% {
+    filter: drop-shadow(0 0 8px rgba(255, 229, 102, 0.9));
+  }
+}
+
+/* Hover effects */
+.my-car-icon:hover circle {
+  filter: drop-shadow(0 0 15px rgba(255, 229, 102, 1));
+  opacity: 0.8;
+}
+
+.bar:hover {
+  opacity: 0.8;
+}
+
+.data-point {
+  cursor: pointer;
+}
+
+.data-point:hover {
+  r: 8;
+}
+
+/* Responsive styling */
+@media (max-width: 480px) {
+  .data-point {
+    r: 3;
+  }
+  .data-point:hover {
+    r: 4;
+  }
+  .chart-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  #detailed-view {
+    min-width: unset !important;
+    width: 95vw !important;
+    min-height: unset !important;
+    height: 90vh !important;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .data-point {
+    r: 4;
+  }
+  .data-point:hover {
+    r: 5;
+  }
+  .chart-title {
+    font-size: 20px;
+  }
+  #detailed-view {
+    min-width: unset !important;
+    width: 90vw !important;
+  }
+  .chart-svg {
+    max-height: 80vh;
+  }
+}
+
+.car-icon {
+  color: #FFFFFF;
+  background: #FFE566;
+  padding: 8px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+  
