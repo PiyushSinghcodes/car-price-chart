@@ -1,5 +1,5 @@
 import React from 'react';
-import CarPriceChart from './components/CarPriceChart';
+import CarPriceChart from './components/CarPriceChart/index';
 
 const App = () => {
   return (
