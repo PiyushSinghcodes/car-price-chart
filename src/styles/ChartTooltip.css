@@ -1,0 +1,77 @@
+/* ChartTooltip.css - Styles for chart tooltip */
+
+.tooltip-container {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 99999;
+  background: linear-gradient(145deg, #B8FFF2, #E0FFFA);
+  padding: 15px 25px;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+  line-height: 1.5;
+  min-width: 200px;
+  transform: translateX(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+}
+
+/* This ensures the tooltip becomes visible smoothly */
+.tooltip-container.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Tooltip arrow (pointer) */
+.tooltip-container::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 15px solid #B8FFF2;
+}
+
+/* Tooltip inner container */
+.tooltip-inner {
+  background-color: transparent;
+  padding: 8px;
+}
+
+/* Tooltip content layout */
+.tooltip-content {
+  display: grid;
+  gap: 8px;
+}
+
+/* Tooltip title */
+.tooltip-header {
+  font-weight: bold;
+  color: #2C3E50;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* Tooltip rows */
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Tooltip labels */
+.tooltip-label {
+  color: #34495E;
+  font-weight: 500;
+}
+
+/* Tooltip values */
+.tooltip-value {
+  color: #2C3E50;
+  font-weight: 600;
+} 

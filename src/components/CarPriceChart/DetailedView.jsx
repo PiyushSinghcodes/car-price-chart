@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import * as d3 from 'd3';
 import { formatPriceInLakhs } from '../../utils/formatters';
+import '../../styles/DetailedView.css';
 
 /**
  * Create detailed view when a year bar is clicked
@@ -47,28 +48,11 @@ const DetailedView = ({
     
     const overlay = d3.select('body')
       .append('div')
-      .attr('id', 'detail-overlay')
-      .style('position', 'fixed')
-      .style('top', '0')
-      .style('left', '0')
-      .style('width', '100%')
-      .style('height', '100%')
-      .style('background-color', 'rgba(0, 0, 0, 0.5)')
-      .style('z-index', '9998');
+      .attr('id', 'detail-overlay');
    
     const modal = d3.select('body')
       .append('div')
-      .attr('id', 'detail-modal')
-      .style('position', 'fixed')
-      .style('left', '20px')
-      .style('top', '20px')
-      .style('background-color', '#ffffff')
-      .style('padding-top', '24px')
-      .style('width', '732px')
-      .style('height', '413px')
-      .style('border-radius', '8px')
-      .style('box-shadow', '0 4px 32px rgba(0, 0, 0, 0.15)')
-      .style('z-index', '9999');
+      .attr('id', 'detail-modal');
   
     // Add click handlers
     overlay.on('click', () => {
@@ -82,50 +66,14 @@ const DetailedView = ({
     modal.on('click', (event) => {
       event.stopPropagation();
     });
-  
-    const styleSheet = document.createElement('style');
-    styleSheet.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translate(-50%, -48%); }
-        to { opacity: 1; transform: translate(-50%, -50%); }
-      }
-      #detail-modal {
-        backdrop-filter: blur(4px);
-      }
-    `;
-    document.head.appendChild(styleSheet);
-       
+    
     const detailedView = d3.select('body')
       .append('div')
-      .attr('id', 'detailed-view')
-      .style('position', 'absolute')
-      .style('top', '20px')
-      .style('left', '20px')
-      .style('transform', 'translate(20px, 20px)')
-      .style('background-color', '#ffffff')
-      .style('padding', '24px')
-      .style('border', '1px solid #ddd')
-      .style('box-shadow', '0 0 10px rgba(0,0,0,0.2)')
-      .style('width', '732px')
-      .style('height', '413px')
-      .style('max-width', '1400px')
-      .style('max-height', '900px')
-      .style('overflow', 'auto')
-      .style('z-index', '100')
-      .style('border-radius', '8px');
+      .attr('id', 'detailed-view');
     
     // Add close button that removes both overlay and detailed view
     const closeButton = modal.append('div')
-      .style('position', 'absolute')
-      .style('top', '24px')
-      .style('right', '24px')
-      .style('cursor', 'pointer')
-      .style('background', 'var(--Sys-Color-Primary-Container, #E0FFFA)')
-      .style('color', '#8FF4EE')
-      .style('padding', '5px 10px')
-      .style('border-radius', '8px')
-      .style('box-shadow', '0px -2px 0px 0px #8FF4EE inset')
-      .style('font-weight', 'bold')
+      .attr('class', 'close-button')
       .text('All years')
       .on('click', () => {
         d3.selectAll("#detail-modal, .detailed-tooltip, #detail-overlay, #detailed-view, .tooltip")
@@ -184,8 +132,7 @@ const DetailedView = ({
       .call(d3.axisLeft(detailedY)
         .tickSize(-width)
         .tickFormat('')
-      )
-      .style('stroke-opacity', '0.2');
+      );
   
     // Add Y axis
     const detailedYAxis = detailedSvg.append('g')
@@ -197,15 +144,10 @@ const DetailedView = ({
   
     // Add Y axis label
     detailedYAxis.append('text')
+      .attr('class', 'axis-label')
       .attr('transform', 'rotate(-90)')
       .attr('y', -60)
       .attr('x', -(height / 2))
-      .attr('fill', '#585A5A')
-      .attr('text-anchor', 'middle')
-      .attr('font-size', '16px')
-      .attr('line-height', '11.246px')
-      .attr('letter-spacing', '0.234px')
-      .attr('font-weight', '400')
       .text('Price (in ₹)');
   
     // Add X axis
@@ -221,24 +163,16 @@ const DetailedView = ({
       .style('color', '#4A4A4C')
       .style('font-size', '12px')
       .append('text')
+      .attr('class', 'axis-label')
       .attr('x', width / 2)
       .attr('y', 35)
-      .attr('fill', '#585A5A')
-      .attr('text-anchor', 'middle')
-      .attr('font-size', '15.205px')
-      .attr('letter-spacing', '0.475px')
-      .attr('font-weight', '400')
       .text(` ${d.year} (Distance Travelled(in km))`);
   
     // Add title
     detailedSvg.append('text')
+      .attr('class', 'chart-title')
       .attr('x', -50)
       .attr('y', -65)
-      .attr('text-anchor', 'start')
-      .attr('font-size', '20px')
-      .attr('font-weight', '400')
-      .attr('line-height', '26px')
-      .style('font-family', 'Noto Sans, sans-serif')
       .text(`Price Insights`);
   
     // Replace the data points section with car icons
@@ -256,16 +190,16 @@ const DetailedView = ({
       if (isMyCar) {
         // Add yellow highlight circle for mycar
         carIcon.append('circle')
+          .attr('class', 'my-car-highlight')
           .attr('r', 27)
-          .attr('fill', '#FFE566')
           .attr('cx', 20)
           .attr('cy', 20)
           .style('opacity', 0.8)
-          .style('filter', 'drop-shadow(0 0 8px rgba(255, 229, 102, 0.8))')
-          .style('animation', 'glowing 5s infinite');
+          .style('filter', 'drop-shadow(0 0 8px rgba(255, 229, 102, 0.8))');
       }
   
       carIcon.append('path')
+        .attr('class', 'car-path')
         .attr('d', 'M499.99 176h-59.87l-16.64-41.6C406.38 91.63 365.57 64 319.5 64h-127c-46.06 0-86.88 27.63-103.99 70.4L71.87 176H12.01C4.2 176-1.53 183.34.37 190.91l6 24C7.7 220.25 12.5 224 18.01 224h20.07C24.65 235.73 16 252.78 16 272v48c0 16.12 6.16 30.67 16 41.93V416c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32v-32h256v32c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32v-54.07c9.84-11.25 16-25.8 16-41.93v-48c0-19.22-8.65-36.27-22.07-48H494c5.51 0 10.31-3.75 11.64-9.09l6-24c1.89-7.57-3.84-14.91-11.65-14.91zm-352.06-17.83c7.29-18.22 24.94-30.17 44.57-30.17h127c19.63 0 37.28 11.95 44.57 30.17L384 208H128l19.93-49.83zM96 319.8c-19.2 0-32-12.76-32-31.9S76.8 256 96 256s48 28.71 48 47.85-28.8 15.95-48 15.95zm320 0c-19.2 0-48 3.19-48-15.95S396.8 256 416 256s32 12.76 32 31.9-12.8 31.9-32 31.9z')
         .attr('fill', isMyCar ? 'none' : car.Color)
         .attr('stroke', isMyCar ? '#FFFFFF' : 'none')
@@ -279,20 +213,27 @@ const DetailedView = ({
           if (isMyCar) {
             d3.select(this).select('circle')
               .attr('r', 30)
-              .style('opacity', 0.8);
+              .style('opacity', 0.8)
+              .style('filter', 'drop-shadow(0 0 15px rgba(255, 229, 102, 1))');
           }
   
           d3.select(this).select('path')
             .transition()
             .duration(200)
-            .attr('transform', `scale(${carScale * hoverScale})`);
+            .attr('transform', `scale(${carScale * hoverScale})`)
+            .style('filter', 'drop-shadow(3px 3px 4px rgba(0,0,0,0.4))');
   
-          const tooltip = d3.select(tooltipRef.current)
+          const tooltip = d3.select(tooltipRef.current);
+          
+          // Make sure the tooltip is visible
+          tooltip
             .style('visibility', 'visible')
+            .style('opacity', '1')
+            .classed('visible', true)
             .style('left', `${event.pageX + 15}px`)
             .style('top', `${event.pageY - 100}px`)
             .html(`
-              <div id="tooltip-container">
+              <div class="tooltip-inner">
                 <div class="tooltip-content">
                   <div class="tooltip-header">${isMyCar ? 'My Car Details' : 'Car Details'}</div>
                   <div class="tooltip-row">
@@ -315,15 +256,21 @@ const DetailedView = ({
           if (isMyCar) {
             d3.select(this).select('circle')
               .attr('r', 27)
-              .style('opacity', 0.6);
+              .style('opacity', 0.6)
+              .style('filter', 'drop-shadow(0 0 8px rgba(255, 229, 102, 0.8))');
           }
   
           d3.select(this).select('path')
             .transition()
             .duration(200)
-            .attr('transform', `scale(${carScale})`);
+            .attr('transform', `scale(${carScale})`)
+            .style('filter', 'drop-shadow(2px 2px 2px rgba(0,0,0,0.3))');
   
-          d3.select(tooltipRef.current).style('visibility', 'hidden');
+          // Hide the tooltip
+          d3.select(tooltipRef.current)
+            .style('visibility', 'hidden')
+            .style('opacity', '0')
+            .classed('visible', false);
         });
     });
   

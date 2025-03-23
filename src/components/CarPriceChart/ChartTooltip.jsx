@@ -1,4 +1,5 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect } from 'react';
+import '../../styles/ChartTooltip.css';
 
 /**
  * Tooltip component for displaying car details
@@ -7,16 +8,19 @@ import React, { forwardRef } from 'react';
  * @returns {JSX.Element} ChartTooltip component
  */
 const ChartTooltip = forwardRef((props, ref) => {
+  // Handle cleanup when component unmounts
+  useEffect(() => {
+    return () => {
+      // Remove any existing tooltips on unmount
+      const tooltips = document.querySelectorAll('.tooltip-container');
+      tooltips.forEach(tooltip => tooltip.remove());
+    };
+  }, []);
+
   return (
     <div 
-      ref={ref} 
-      id="tooltip-container"
-      style={{
-        position: 'absolute',
-        visibility: 'hidden',
-        pointerEvents: 'none',
-        zIndex: 99999
-      }}
+      ref={ref}
+      className="tooltip-container"
     />
   );
 });

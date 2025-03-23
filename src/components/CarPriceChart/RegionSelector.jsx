@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/RegionSelector.css';
 
 /**
  * RegionSelector component for filtering by region

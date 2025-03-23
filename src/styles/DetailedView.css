@@ -57,11 +57,18 @@
   border-radius: 8px;
   box-shadow: 0px -2px 0px 0px #8FF4EE inset;
   font-weight: bold;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.close-button:hover {
+  background-color: #d5faf5;
+  transform: scale(1.05);
 }
 
 /* Car icon styles */
 .car-icon, .my-car-icon {
   cursor: pointer;
+  transition: transform 0.2s;
 }
 
 /* My car highlight */
@@ -73,11 +80,13 @@
   opacity: 0.8;
   filter: drop-shadow(0 0 8px rgba(255, 229, 102, 0.8));
   animation: glowing 5s infinite;
+  transition: r 0.2s, opacity 0.2s, filter 0.2s;
 }
 
 /* Car path styles */
 .car-path {
   filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
+  transition: transform 0.2s, filter 0.2s;
 }
 
 /* Grid lines */
@@ -104,49 +113,22 @@
   font-family: 'Noto Sans', sans-serif;
 }
 
-/* Tooltip container */
-#tooltip-container {
+/* DetailedView tooltip styles - separate from ChartTooltip */
+.detailed-tooltip {
+  position: absolute;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   padding: 12px;
   max-width: 240px;
-}
-
-.tooltip-content {
-  font-family: 'Noto Sans', sans-serif;
-  color: #343434;
-}
-
-.tooltip-header {
-  font-weight: 600;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 6px;
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-.tooltip-row {
-  display: flex;
-  justify-content: space-between;
-  margin: 4px 0;
-  font-size: 12px;
-}
-
-.tooltip-label {
-  color: #666;
-  font-weight: 500;
-}
-
-.tooltip-value {
-  font-weight: 600;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 /* Animation */
 @keyframes glowing {
-  0% { opacity: 0.6; }
-  50% { opacity: 0.9; }
-  100% { opacity: 0.6; }
+  0% { opacity: 0.6; filter: drop-shadow(0 0 8px rgba(255, 229, 102, 0.7)); }
+  50% { opacity: 0.9; filter: drop-shadow(0 0 12px rgba(255, 229, 102, 1)); }
+  100% { opacity: 0.6; filter: drop-shadow(0 0 8px rgba(255, 229, 102, 0.7)); }
 }
 
 @keyframes fadeIn {

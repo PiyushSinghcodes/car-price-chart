@@ -16,7 +16,7 @@ import DetailedView from './DetailedView';
 import { getFilteredData, barColors } from '../../utils/chartUtils';
 
 // Import styles
-import '../CarPriceChart.css';
+import '../../styles/CarPriceChart.css';
 
 /**
  * Car Price Chart Component
@@ -176,8 +176,7 @@ const CarPriceChart = () => {
       .text('Year(with distance spread(0-150K km))');
 
     // Create tooltip with fixed positioning
-    const tooltip = d3.select(tooltipRef.current)
-      .attr("id", "tooltip-contain");
+    const tooltip = d3.select(tooltipRef.current);
     
     // Update data points with clear positioning
     Object.entries(filteredCarData).forEach(([year, yearData]) => {
@@ -204,10 +203,12 @@ const CarPriceChart = () => {
             .style('opacity', 0.8);
           tooltip
             .style('visibility', 'visible')
+            .style('opacity', '1')
+            .classed('visible', true)
             .style('top', `${event.pageY - 60}px`)
             .style('left', `${event.pageX + 20}px`)
             .html(`
-              <div id="tooltip-container">
+              <div class="tooltip-inner">
                 <div class="tooltip-content">
                   <div class="tooltip-header">Car Details</div>
                   <div class="tooltip-row">
@@ -232,7 +233,10 @@ const CarPriceChart = () => {
         })
         .on('mouseout', function () {
           d3.select(this).attr('r', 5);
-          tooltip.style('visibility', 'hidden');
+          tooltip
+            .style('visibility', 'hidden')
+            .style('opacity', '0')
+            .classed('visible', false);
         })
         .on('mousemove', function (event) {
           tooltip
@@ -281,10 +285,12 @@ const CarPriceChart = () => {
 
           tooltip
             .style('visibility', 'visible')
+            .style('opacity', '1')
+            .classed('visible', true)
             .style('left', `${event.pageX + 15}px`)
             .style('top', `${event.pageY - 100}px`)
             .html(`
-              <div id="tooltip-container">
+              <div class="tooltip-inner">
                 <div class="tooltip-content">
                   <div class="tooltip-header">My Car Details</div>
                   <div class="tooltip-row">
@@ -313,7 +319,10 @@ const CarPriceChart = () => {
             .duration(200)
             .attr('transform', `scale(${carScale})`);
 
-          tooltip.style('visibility', 'hidden');
+          tooltip
+            .style('visibility', 'hidden')
+            .style('opacity', '0')
+            .classed('visible', false);
         });
     }
 
